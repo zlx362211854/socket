@@ -1,11 +1,11 @@
 var server = require('http').createServer();
 var io = require('socket.io')(server);
 io.on('connection', function(client){
-    console.log('in')
     client.on('message', function(data){
-        console.log(data, 'data111')
+        if (data % 2 === 0) {
+            client.emit('news', '输入的数'+data+'是偶数');
+        }
     });
-    client.emit('news', { hello: 'world' });
     client.on('disconnect', function(){});
 });
 server.listen(3000);
